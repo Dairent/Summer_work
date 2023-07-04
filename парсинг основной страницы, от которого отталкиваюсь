@@ -1,0 +1,36 @@
+import requests
+from bs4 import BeautifulSoup
+
+# Парсер для практического задания "Задание_3_для_прохождения_практики"
+# проходит по сайту, выводит всю информацию, требываемую в задание (текстом для каждого спотлайта  тут я считаю текст, который находится на основной странице (старт странице))
+
+#def vivod():
+#   print(link)
+#   print(name.strip())
+#   rint(text.strip())
+#   print(picture)
+
+itog = []
+url = "https://www.nature.com/wls/spotlights/"
+r  = requests.get(url)
+r.text
+soup_1 = BeautifulSoup(r.text, "html.parser")
+
+#osnova = soup_1.find('div', class_="section clearfix spotlightSection")
+
+#link = "https://www.nature.com" + soup_1.find('div', class_="section clearfix spotlightSection").find('a', class_="plumColor px22 siteFontNormalC").get('href')
+#name = soup_1.find('div', class_="section clearfix spotlightSection").find('a', class_="plumColor px22 siteFontNormalC").text.split() #это массив, выводить через print(name[0])
+#text = soup_1.find('div', class_="section clearfix spotlightSection").find('div', class_="clearfix padtop1px padbot5px siteFontLightC px18 colorBlack").text
+#picture = soup_1.find('div', class_="section clearfix spotlightSection").find('div', class_="wrappedImg padtop3px").find('img').get('src')
+
+spotlights = soup_1.findAll('div', class_="section clearfix spotlightSection")
+
+for spotlight in spotlights:
+    link = "https://www.nature.com" + spotlight.find('a', class_="plumColor px22 siteFontNormalC").get('href')
+    name = spotlight.find('a', class_="plumColor px22 siteFontNormalC").text.strip()
+    text = spotlight.find('div', class_="clearfix padtop1px padbot5px siteFontLightC px18 colorBlack").text.strip()
+    picture = spotlight.find('div', class_="wrappedImg padtop3px").find('img').get('src')
+    itog.append([link, name, text, picture])
+
+for i in range(len(spotlights)):
+    print(itog[i])
