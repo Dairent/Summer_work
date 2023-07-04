@@ -33,6 +33,7 @@ def Crawler():
         r = requests.get(i)
         r.text
         soup_2 = BeautifulSoup(r.text, "html.parser")
+
    #for i in range(len(spotlights)):
    #    itog[i] = itog[i] + texts[i]
 
