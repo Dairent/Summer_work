@@ -1,0 +1,43 @@
+import requests
+from bs4 import BeautifulSoup
+
+start_URL = "https://www.nature.com/wls/spotlights/"
+queue = []
+itog = []
+texts = []
+
+def Crawler():
+
+    r = requests.get(start_URL)
+    r.text
+    soup_1 = BeautifulSoup(r.text, "html.parser")
+
+    spotlights = soup_1.findAll('div', class_="section clearfix spotlightSection")
+
+    for spotlight in spotlights:
+        link = "https://www.nature.com" + spotlight.find('a', class_="plumColor px22 siteFontNormalC").get('href')
+        name = spotlight.find('a', class_="plumColor px22 siteFontNormalC").text.strip()
+        picture = spotlight.find('div', class_="wrappedImg padtop3px").find('img').get('src')
+        itog.append([link, name, picture])
+
+    for spotlight in spotlights:
+        link = "https://www.nature.com" + spotlight.find('a', class_="plumColor px22 siteFontNormalC").get('href')
+        queue.append(link)
+
+    for i in queue:
+        print(i)
+        r = requests.get(i)
+        r.text
+        soup_2 = BeautifulSoup(r.text, "html.parser")
+   #for i in range(len(spotlights)):
+   #    itog[i] = itog[i] + texts[i]
+
+    for i in range(len(spotlights)):
+        print(itog[i])
+
+    for i in range(len((texts))):
+        print(texts[i])
+
+
+if __name__ == '__main__':
+    Crawler()
